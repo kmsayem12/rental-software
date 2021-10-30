@@ -49,7 +49,12 @@ function AddFrom({ changeProduct, addType = "booking" }) {
         <Input readOnly />
       </Form.Item>
       <Form.Item name="discount" label="Discount">
-        <InputNumber min="0" style={{ width: "100%" }} />
+        <InputNumber
+          formatter={(value) => `${value}%`}
+          parser={(value) => value.replace("%", "")}
+          min="0"
+          style={{ width: "100%" }}
+        />
       </Form.Item>
       {addType === "return" ? (
         <Form.Item name="use_mileage" label="Use Mileage">
