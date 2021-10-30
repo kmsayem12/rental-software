@@ -46,3 +46,32 @@ export const getDataInlocalStorage = () => {
   //retrieve items from local storage
   return JSON.parse(localStorage.getItem("products")) || [];
 };
+
+/**
+ * calculate mileage to price
+ * @params use mileage, price
+ * @return price
+ */
+export const calculateMileageToPrice = (use_mileage, price) => {
+  return price * (use_mileage / perEveryDayMiles);
+};
+
+/**
+ * calculate mileage to count days
+ * @params use mileage
+ * @return days like 2
+ */
+export const calculateMileageToCountDays = (use_mileage) => {
+  return use_mileage / perEveryDayMiles;
+};
+
+/**
+ * calculate durability
+ * @params count days,minimum rent period
+ * @return number like 2
+ */
+export const calculateDurability = (countDays, minimum_rent_period) => {
+  return minimum_rent_period === perEveryDecreased
+    ? countDays * perEveryDecreased
+    : countDays * per2DaysDecreased;
+};

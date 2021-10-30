@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Table from "../../components/Table";
 import Card from "../../components/Card";
 import Booking from "./Booking";
+import Return from "./Return";
 import { ProductContext } from "../../Context/ProductContext";
 import TableFilter from "./TableFilter";
 
@@ -65,6 +66,7 @@ function Home() {
       <Card>
         <div className="page-header">
           <Booking />
+          <Return />
         </div>
         <Table columns={columns} data={state} />
       </Card>
