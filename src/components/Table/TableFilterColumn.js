@@ -3,7 +3,7 @@ import { Input, Button, Space } from "antd";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 
-function TableFilter(dataIndex, name) {
+function TableFilterColumn(dataIndex, name) {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const getColumnSearchProps = (dataIndex, name) => ({
@@ -80,4 +80,4 @@ function TableFilter(dataIndex, name) {
   return getColumnSearchProps(dataIndex, name);
 }
 
-export default TableFilter;
+export default TableFilterColumn;
