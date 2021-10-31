@@ -12,7 +12,12 @@ const rules = [{ required: true }];
 function AddFrom({ changeProduct, addType = "booking" }) {
   const [state] = useContext(ProductContext);
   // product must have durability more than 0
-  const productWithDurability = state.filter((item) => item.durability > 0);
+  let productList = state.filter((item) => item.durability > 0);
+
+  // for booking product must have availability=true
+  productList = productList.filter((item) =>
+    addType === "booking" ? item.availability === true : true || false
+  );
 
   const selectProduct = (value) => {
     const product = state[value];
@@ -20,7 +25,7 @@ function AddFrom({ changeProduct, addType = "booking" }) {
   };
 
   // product options
-  const productOptions = productWithDurability.map((product, index) => (
+  const productOptions = productList.map((product, index) => (
     <Option value={index} key={index}>
       {product.name}
     </Option>

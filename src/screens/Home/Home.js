@@ -57,6 +57,8 @@ function Home() {
       title: "Available",
       key: "availability",
       dataIndex: "availability",
+      sorter: (a, b) => a.availability - b.availability,
+      ...TableFilter("availability", "Available"),
       render: (availability) => (availability ? "Yes" : "No"),
     },
   ];
