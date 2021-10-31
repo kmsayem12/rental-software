@@ -40,20 +40,23 @@ function Booking() {
     setPrice(afterDiscountPrice);
 
     if (hasConfirmAlert) {
-      const newProduct = {
-        ...product,
-        availability: false,
-        rent: afterDiscountPrice,
-        needing_repair: values?.needing_repair,
-      };
-
-      dispatch({ type: "update", payload: newProduct });
-      toggleConfirmAlert();
-      toggleModal();
-      form.resetFields();
+      saveReturn(afterDiscountPrice, values?.needing_repair);
     } else {
       toggleConfirmAlert();
     }
+  };
+
+  const saveReturn = (afterDiscountPrice, needing_repair) => {
+    const updateProduct = {
+      ...product,
+      availability: false,
+      rent: afterDiscountPrice,
+      needing_repair,
+    };
+    dispatch({ type: "update", payload: updateProduct });
+    toggleConfirmAlert();
+    toggleModal();
+    form.resetFields();
   };
 
   const changeProduct = (product) => {
