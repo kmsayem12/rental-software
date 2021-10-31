@@ -79,6 +79,7 @@ function Return() {
     // close all modal
     toggleConfirmAlert();
     toggleModal();
+    form.resetFields();
   };
 
   const changeProduct = (product) => {
