@@ -75,3 +75,19 @@ export const calculateDurability = (countDays, minimum_rent_period) => {
     ? countDays * perEveryDecreased
     : countDays * per2DaysDecreased;
 };
+
+/**
+ * products Filtaring
+ * @params products array,addType
+ * @return products array
+ */
+export const productsFiltaring = (products, addType) => {
+  // product must have durability more than 0
+  let productList = products.filter((item) => item.durability > 0);
+
+  if (addType === "booking") {
+    // for booking product must have availability=true
+    productList = productList.filter((item) => item.availability === true);
+  }
+  return productList;
+};

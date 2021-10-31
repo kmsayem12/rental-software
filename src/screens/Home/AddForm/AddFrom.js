@@ -4,6 +4,7 @@ import { Form, Input, InputNumber, Select, DatePicker } from "antd";
 import moment from "moment";
 import { dateFormat } from "../../../constants";
 import { ProductContext } from "../../../Context/ProductContext";
+import { productsFiltaring } from "../../../lib";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -11,13 +12,7 @@ const rules = [{ required: true }];
 
 function AddFrom({ changeProduct, addType = "booking" }) {
   const [state] = useContext(ProductContext);
-  // product must have durability more than 0
-  let productList = state.filter((item) => item.durability > 0);
-
-  // for booking product must have availability=true
-  productList = productList.filter((item) =>
-    addType === "booking" ? item.availability === true : true || false
-  );
+  const productList = productsFiltaring(state, addType);
 
   const selectProduct = (value) => {
     const product = state[value];
