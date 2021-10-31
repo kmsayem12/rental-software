@@ -40,10 +40,6 @@ function Return() {
     const use_mileage = values?.use_mileage;
     const price = calculateMileageToPrice(use_mileage, product?.price);
     const countDays = calculateMileageToCountDays(use_mileage);
-    const durability = calculateDurability(
-      countDays,
-      product?.minimum_rent_period
-    );
     const discount =
       product?.minimum_rent_period < countDays ? values?.discount : 0;
     const discountPrice = discountCalculate(price, discount);
@@ -51,23 +47,38 @@ function Return() {
     setPrice(afterDiscountPrice);
 
     if (hasConfirmAlert) {
-      const newProduct = {
-        ...product,
-        mileage: use_mileage,
-        durability:
-          product?.durability > 0
-            ? product?.durability - durability
-            : durability,
-        rent: afterDiscountPrice,
-        needing_repair: values?.needing_repair,
-      };
-      dispatch({ type: "update", payload: newProduct });
-
-      toggleConfirmAlert();
-      toggleModal();
+      saveReturn(
+        use_mileage,
+        countDays,
+        afterDiscountPrice,
+        values?.needing_repair
+      );
     } else {
       toggleConfirmAlert();
     }
+  };
+
+  const saveReturn = (
+    use_mileage,
+    countDays,
+    afterDiscountPrice,
+    needing_repair
+  ) => {
+    const durability = calculateDurability(
+      countDays,
+      product?.minimum_rent_period
+    );
+    const updateProduct = {
+      ...product,
+      mileage: use_mileage,
+      durability: product?.durability - durability,
+      rent: afterDiscountPrice,
+      needing_repair,
+    };
+    dispatch({ type: "update", payload: updateProduct });
+    // close all modal
+    toggleConfirmAlert();
+    toggleModal();
   };
 
   const changeProduct = (product) => {

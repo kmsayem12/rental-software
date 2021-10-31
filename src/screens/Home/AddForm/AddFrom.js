@@ -30,6 +30,8 @@ function AddFrom({ changeProduct, addType = "booking" }) {
     // Can not select days before today and today
     return current && current < moment().endOf("day");
   };
+  const discountTooltip =
+    "The discount will be applied when rents the product longer than the minimum rental period";
 
   return (
     <>
@@ -48,7 +50,7 @@ function AddFrom({ changeProduct, addType = "booking" }) {
       <Form.Item name="mileage" label="Mileage">
         <Input readOnly />
       </Form.Item>
-      <Form.Item name="discount" label="Discount">
+      <Form.Item name="discount" label="Discount" tooltip={discountTooltip}>
         <InputNumber
           formatter={(value) => `${value}%`}
           parser={(value) => value.replace("%", "")}
