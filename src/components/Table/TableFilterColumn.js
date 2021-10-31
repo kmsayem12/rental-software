@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Input, Button, Space } from "antd";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 
-function TableFilterColumn(dataIndex, name) {
+function TableFilterColumn(dataIndex, columnName) {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-  const getColumnSearchProps = (dataIndex, name) => ({
+
+  const getColumnSearchProps = (dataIndex, columnName) => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -15,7 +17,7 @@ function TableFilterColumn(dataIndex, name) {
     }) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={`Search ${name}`}
+          placeholder={`Search ${columnName}`}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -77,7 +79,12 @@ function TableFilterColumn(dataIndex, name) {
     setSearchText("");
   };
 
-  return getColumnSearchProps(dataIndex, name);
+  return getColumnSearchProps(dataIndex, columnName);
 }
+
+TableFilterColumn.propTypes = {
+  dataIndex: PropTypes.string.isRequired,
+  columnName: PropTypes.string.isRequired,
+};
 
 export default TableFilterColumn;
