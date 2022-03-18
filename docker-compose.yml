@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  app:
+    container_name: rental
+    build:
+      context: ./.docker
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+    ports:
+      - 3100:3000 #dev environment port
+      - 8080:80 #production environment port
+
+    environment:
+      - CHOKIDAR_USEPOLLING=true
